@@ -7,6 +7,7 @@ import {
   FieldPath,
   FieldValues,
   FormProvider,
+  get,
   useFormContext,
 } from "react-hook-form";
 
@@ -82,7 +83,7 @@ const FormItem = React.forwardRef<
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn("space-y-2", className)} {...props} />
+      <div ref={ref} className={cn("", className)} {...props} />
     </FormItemContext.Provider>
   );
 });
@@ -150,7 +151,24 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message) : children;
+  let newObject: any;
+  let newError: any;
+  if (error) {
+    newObject = Object?.assign(
+      {},
+      ...Object.values(error).map((x) => {
+        return x;
+      })
+    );
+
+    if (newObject?.message) {
+      newError = newObject;
+    } else {
+      newError = error;
+    }
+  }
+
+  const body = newError ? String(newError?.message) : children;
 
   if (!body) {
     return null;
@@ -161,14 +179,15 @@ const FormMessage = React.forwardRef<
       level={1}
       ref={ref}
       id={formMessageId}
-      className={cn(" text-redNeutral-300 flex items-center", className)}
+      className={cn(" text-redNeutral-300 flex", className)}
       {...props}
     >
-      <AlertTriangle size={20} className="mr-1" />
+      <AlertTriangle size={15} className="mr-1" />
       {body}
     </Caption>
   );
 });
+
 FormMessage.displayName = "FormMessage";
 
 export {

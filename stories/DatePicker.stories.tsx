@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
+import { format, isValid, parse } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -44,6 +44,7 @@ export const DatePickerSingle = () => {
     from: undefined,
     to: undefined,
   });
+
   const [isPickerTriggered, setIsPicketTriggered] = React.useState(false);
 
   const FormSchema = z.object({
@@ -53,7 +54,7 @@ export const DatePickerSingle = () => {
     }),
   });
   const form = useForm<any>({
-    resolver: zodResolver(FormSchema),
+    // resolver: zodResolver(FormSchema),
   });
 
   function onSubmit(data: any) {
@@ -77,7 +78,7 @@ export const DatePickerSingle = () => {
                 >
                   <div className="flex items-center h-12">
                     <Input
-                      className={`  ${date && " placeholder:text-black-300"}`}
+                      className={`${date && " placeholder:text-black-300"}`}
                       placeholder={`${
                         date?.from
                           ? date.to
@@ -87,6 +88,14 @@ export const DatePickerSingle = () => {
                             : format(date.from, "P")
                           : "Pick a date"
                       }`}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const splitValue = value.split("-");
+                        field.onChange({
+                          from: splitValue[0],
+                          to: splitValue[1],
+                        });
+                      }}
                     />
 
                     <PopoverTrigger

@@ -4,12 +4,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
 const buttonVariants = cva(
-  " flex items-center shadow-xl rounded-md  space-x-2 font-semibold  transition-colors disabled:cursor-not-allowed disabled:shadow-none",
+  " flex items-center shadow-xl rounded-md w-full  justify-center  space-x-2 font-semibold  transition-colors disabled:cursor-not-allowed disabled:shadow-none disabled:hover:none",
   {
     variants: {
       variant: {
         primary:
-          "bg-blueInteraction-400 text-white-50 hover:bg-blueInteraction-600 disabled:opacity-40 ",
+          "bg-blueInteraction-400 text-white-50 hover:bg-blueInteraction-600 hover:bg-blueInteraction-400 disabled:opacity-40  ",
         secondary:
           " border-2 border-blueInteraction-400 disabled:opacity-40 text-blueInteraction-400 hover:text-blueInteraction-700 ",
         destructive:
@@ -21,7 +21,7 @@ const buttonVariants = cva(
       },
       size: {
         default: " h-[50px] py-[12px] px-[28px] text-[22px] leading-[26px] ",
-        sm: "h-[38px] px-[20px] py-[8px] text-[18px] leading-[22px]",
+        small: "h-[38px] px-[20px] py-[8px] text-[18px] leading-[22px]",
       },
     },
     defaultVariants: {

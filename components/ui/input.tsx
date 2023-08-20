@@ -1,67 +1,103 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-
+import InputMask from "react-input-mask";
 import { cn } from "../../lib/utils";
 import Caption from "./typography/Caption";
 import { useFormField } from "./Form";
-import { AlertTriangle } from "lucide-react";
-
-const inputVariants = cva(
-  "flex w-full mt-[5px] mb-[5px] rounded-md  transition-all duration-400  p-[12px]  bg-transparent text-md   placeholder:text-muted-foreground   disabled:bg-gray-300 disabled:border-none  disabled:cursor-not-allowed disabled:opacity-50 ",
-  {
-    variants: {
-      variant: {
-        default:
-          "border-gray-400 focus:ring-blueInteraction-400 focus:border-blueInteraction-400 border  focus:ring-2",
-        available:
-          "border-blueInteraction-400 focus:ring-blueInteraction-400 focus:border-blueInteraction-400 border  focus:ring-2",
-        display:
-          " outline-none ring-0  read-only:focus:border-none read-only:focus:ring-0 ",
-        error: "bg-red-50 border-2 border-red-400  outline-none  ring-0  ",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-);
+import Text from "./typography/Text";
+import { inputVariants } from "@/lib/component-variants";
+import { PatternFormat } from "react-number-format";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      "disabled" | "readOnly"
+    >,
     VariantProps<typeof inputVariants> {
-  label?: string;
+  label: string;
   assertiveText?: string;
+  size?: any;
+  disabled?: boolean;
+  readonly?: boolean;
+  focusedClassName?: string;
+  format?: "phoneNumber" | null;
+  onChange?: any;
+  value?: any;
+  onKeyDown?: any;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, assertiveText, label, variant, type, ...props }, ref) => {
+  (
+    {
+      className,
+      disabled,
+      readOnly,
+      size,
+      assertiveText,
+      label,
+      variant,
+      type,
+      focusedClassName,
+      format,
+      ...props
+    },
+    ref
+  ) => {
     const { error } = useFormField();
 
     return (
-      <div className="w-full mt-4 mb-4   ">
-        <label className="">{label}</label>
+      <div className="w-full flex flex-col justify-center">
+        <Text level={size === "small" ? 5 : 4}>{label}</Text>
         {error ? (
           <>
             <input
               type={type}
-              className={cn(inputVariants({ variant: "error", className }))}
+              className={cn(
+                inputVariants({ variant: "error", size, className })
+              )}
               ref={ref}
+              autoComplete="false"
               {...props}
             />
-            {/* <Caption className="flex items-center text-red-400" level={1}>
-              <AlertTriangle size={20} className="mr-1" />
-              {error?.message}
-            </Caption> */}
+          </>
+        ) : format === "phoneNumber" ? (
+          <>
+            <PatternFormat
+              className={cn(
+                inputVariants({ variant, className, size, disabled, readOnly }),
+                " focus:" + focusedClassName
+              )}
+              disabled={disabled}
+              readOnly={readOnly!}
+              autoComplete="false"
+              placeholder={props.placeholder}
+              onValueChange={(val: any) => {
+                const { value } = val;
+                props.onChange(value);
+              }}
+              format="+1 (###) ### ####"
+              mask="_"
+              value={props.value}
+              name={props.name}
+              onKeyDown={props.onKeyDown}
+            />
           </>
         ) : (
           <>
             <input
               type={type}
-              className={cn(inputVariants({ variant, className }))}
+              className={cn(
+                inputVariants({ variant, className, size, disabled, readOnly }),
+                " focus:" + focusedClassName
+              )}
               ref={ref}
+              disabled={disabled}
+              readOnly={readOnly!}
+              autoComplete="false"
               {...props}
             />
-            <Caption className=" text-grayNeutral-400" level={1}>
+
+            <Caption className=" text-grayNeutral-400 " level={1}>
               {assertiveText}
             </Caption>
           </>

@@ -46,6 +46,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               rows={8}
               className={cn(textAreaVariants({ variant: "error", className }))}
               ref={ref}
+              readOnly={variant === "display"}
               {...props}
             />
             <Caption className="flex items-center text-red-400" level={1}>
@@ -59,6 +60,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               rows={8}
               className={cn(textAreaVariants({ variant, className }))}
               ref={ref}
+              readOnly={variant === "display"}
               {...props}
             />
             <Caption className=" text-grayNeutral-400" level={1}>

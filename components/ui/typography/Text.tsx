@@ -26,8 +26,8 @@ export interface TextProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof textVariants> {
   children: any;
-  level: 1 | 2 | 3 | 4 | 5;
-  weight: "medium" | "regular";
+  level?: 1 | 2 | 3 | 4 | 5;
+  weight?: "medium" | "regular";
 }
 
 const Text = React.forwardRef<HTMLElement, TextProps>(

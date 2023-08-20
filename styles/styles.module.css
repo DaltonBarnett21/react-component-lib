@@ -1,0 +1,12 @@
+@keyframes myAnim {
+  0% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+.menu {
+  animation: myAnim 80ms ease-in 0s 1 normal none;
+}
