@@ -1,8 +1,7 @@
 import React from "react";
 
 import { cva, type VariantProps } from "class-variance-authority";
-
-import { cn } from "../../../lib/utils";
+import { cn } from "../../lib/utils";
 
 const titleVariants = cva(" ", {
   variants: {
@@ -27,7 +26,7 @@ export interface TitleProps
   level: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-const Title = React.forwardRef<HTMLElement, TitleProps>(
+export const Title = React.forwardRef<HTMLElement, TitleProps>(
   ({ className, level, children, ...props }) => {
     const Heading: any = `h${level}`;
 
@@ -41,5 +40,3 @@ const Title = React.forwardRef<HTMLElement, TitleProps>(
     );
   }
 );
-
-export default Title;

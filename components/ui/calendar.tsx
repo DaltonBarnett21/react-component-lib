@@ -3,9 +3,7 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
-
-import { cn } from "../../lib/utils";
-import { buttonVariants } from "../ui/button";
+import { cn } from "../lib/utils";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -16,6 +14,8 @@ function Calendar({
   ...props
 }: CalendarProps) {
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     <DayPicker
       captionLayout="dropdown"
       showOutsideDays={showOutsideDays}
@@ -47,7 +47,7 @@ function Calendar({
         day_outside: "text-muted-foreground opacity-50",
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle:
-          "aria-selected:bg-accent aria-selected:text-accent-foreground",
+          "aria-selected:bg-blue-50 rounded-none aria-selected:text-accent-foreground",
         day_hidden: "invisible",
         ...classNames,
       }}
@@ -55,6 +55,7 @@ function Calendar({
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
       }}
+      // disabled={{ before: new Date() }}
       {...props}
     />
   );

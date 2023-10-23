@@ -9,17 +9,18 @@ import Select, {
   MultiValueProps,
   IndicatorSeparatorProps,
 } from "react-select";
-import styles from "../../styles/styles.module.css";
+
 import { clsx } from "clsx";
-import Caption from "./typography/Caption";
+
 import { Play, Variable } from "lucide-react";
 import { useFormField } from "./Form";
+import { Text } from "./typography/Text";
 
-import { cn } from "@/lib/utils";
 import { VariantProps } from "class-variance-authority";
 import { Checkbox } from "./checkbox";
-import Text from "./typography/Text";
-import { inputVariants } from "@/lib/component-variants";
+import { inputVariants } from "../lib/component-variants";
+import { cn } from "../lib/utils";
+import { Caption } from "./typography/Caption";
 
 export type Option = {
   value: number | string;
@@ -42,7 +43,7 @@ interface SelectProps
   onKeyDown?: any;
 }
 
-const MultiSelect = (props: SelectProps) => {
+export const MultiSelect = (props: SelectProps) => {
   const { readOnly, disabled, size, iconClassName, checkedClassName } = props;
   const [selectInput, setSelectInput] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +60,7 @@ const MultiSelect = (props: SelectProps) => {
     all === "All" ? "text-transparent" : ""
   } `;
   const multiValueRemoveStyles = "text-white-50 hidden invisible";
-  let indicatorsContainerStyles = " relative";
+  const indicatorsContainerStyles = " relative";
 
   useEffect(() => {
     if (isOpen) {
@@ -81,8 +82,8 @@ const MultiSelect = (props: SelectProps) => {
   const comparator = (v1: Option, v2: Option) =>
     (v1.value as number) - (v2.value as number);
 
-  let filteredOptions = filterOptions(props.options, selectInput);
-  let filteredSelectedOptions = filterOptions(props.value, selectInput);
+  const filteredOptions = filterOptions(props.options, selectInput);
+  const filteredSelectedOptions = filterOptions(props.value, selectInput);
 
   useEffect(() => {
     if (filteredSelectedOptions.length === filteredOptions.length) {
@@ -206,6 +207,7 @@ const MultiSelect = (props: SelectProps) => {
       return props.onChange(selected);
     else
       return props.onChange([
+        /* eslint-disable-next-line no-unsafe-optional-chaining */
         ...props.value?.filter(
           ({ label }: Option) =>
             !label.toLowerCase().includes(selectInput?.toLowerCase())
@@ -375,5 +377,3 @@ const MultiSelect = (props: SelectProps) => {
     );
   }
 };
-
-export default MultiSelect;

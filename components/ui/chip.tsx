@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import Text from "./typography/Text";
+import { Text } from "./typography/Text";
 import { XCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 interface Props {
   value: string[] | string;
@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const chip = ({ deleteTag, value, label, className }: Props) => {
+export const Chip = ({ deleteTag, value, label, className }: Props) => {
   useEffect(() => {
     console.log("hkjhjkhjk", value);
   }, [value]);
@@ -42,5 +42,3 @@ const chip = ({ deleteTag, value, label, className }: Props) => {
     </>
   );
 };
-
-export default chip;

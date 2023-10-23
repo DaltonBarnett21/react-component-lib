@@ -1,6 +1,6 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn } from "../../lib/utils";
 
 const captionVariants = cva(" ", {
   variants: {
@@ -21,7 +21,7 @@ export interface CaptionProps
   level: 1 | 2;
 }
 
-const Caption = React.forwardRef<HTMLElement, CaptionProps>(
+export const Caption = React.forwardRef<HTMLElement, CaptionProps>(
   ({ className, level, children, ...props }) => {
     return (
       <p
@@ -33,5 +33,3 @@ const Caption = React.forwardRef<HTMLElement, CaptionProps>(
     );
   }
 );
-
-export default Caption;

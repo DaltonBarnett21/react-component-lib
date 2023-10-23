@@ -1,16 +1,17 @@
-import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 import { NumericFormat } from "react-number-format";
 
 import { InputProps } from "./input";
-import Text from "./typography/Text";
-import Caption from "./typography/Caption";
+import { Text } from "./typography/Text";
 import { ListFilter } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Button } from "./button";
 import { FormMessage, useFormField } from "./Form";
-import { inputVariants } from "@/lib/component-variants";
+
 import { VariantProps } from "class-variance-authority";
+import { inputVariants } from "../lib/component-variants";
+import { cn } from "../lib/utils";
+import { Caption } from "./typography/Caption";
 
 interface MenuClasses {
   inputs?: string;
@@ -37,7 +38,7 @@ interface Props
   MenuClasses?: MenuClasses;
 }
 
-const Range = ({
+export const Range = ({
   onChange,
   className,
   size,
@@ -223,5 +224,3 @@ const Range = ({
     </Popover>
   );
 };
-
-export default Range;

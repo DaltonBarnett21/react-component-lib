@@ -10,16 +10,18 @@ import {
   SelectSingleEventHandler,
 } from "react-day-picker";
 import { format, isAfter, isBefore, isMatch, isValid, parse } from "date-fns";
-import { cn } from "../../lib/utils";
-import { Calendar } from "../ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import Text from "./typography/Text";
-import Caption from "./typography/Caption";
+
 import { useFormField } from "./Form";
 import InputMask from "react-input-mask";
 import { MultiValueGeneric } from "react-select/dist/declarations/src/components/MultiValue";
-import { inputVariants } from "@/lib/component-variants";
+
 import { VariantProps } from "class-variance-authority";
+import { cn } from "../lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { Calendar } from "./calendar";
+import { Caption } from "./typography/Caption";
+import { Text } from "./typography/Text";
+import { inputVariants } from "../lib/component-variants";
 
 interface Props
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "disabled" | "readOnly">,
@@ -126,18 +128,18 @@ export function DatePicker({
     onSelect(e.target.value);
     const date = parse(e.target.value, "MM/dd/yyyy", new Date());
 
-    if (date) {
-      setSelected(date);
-      onSelect(e.target.value);
+    // if (date) {
+    //   setSelected(date);
+    //   onSelect(e.target.value);
 
-      if (!isValid(date)) {
-        onSelect("");
-        return setSelected(undefined);
-      }
-    } else {
-      onSelect("");
-      setDateValue("");
-    }
+    //   if (!isValid(date)) {
+    //     onSelect("");
+    //     return setSelected(undefined);
+    //   }
+    // } else {
+    //   onSelect("");
+    //   setDateValue("");
+    // }
   };
 
   const handleSingleSelectChange: SelectSingleEventHandler = (
@@ -189,7 +191,7 @@ export function DatePicker({
                   "focus:" + focusedClassName
                 )}
                 placeholder="mm/dd/yyyy"
-                value={dateValue}
+                value={value}
                 onChange={handleSingleDateChange}
                 onKeyDown={onKeyDown}
                 disabled={disabled || readOnly}

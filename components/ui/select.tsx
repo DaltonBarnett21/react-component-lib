@@ -9,15 +9,14 @@ import {
   components,
 } from "react-select";
 import { default as ReactSelect } from "react-select";
-
+import { Text } from "./typography/Text";
 import { useFormField } from "./Form";
-import Caption from "./typography/Caption";
-import { cn } from "@/lib/utils";
 
 import { VariantProps } from "class-variance-authority";
 import { Option } from "./MultiSelect";
-import Text from "./typography/Text";
-import { inputVariants } from "@/lib/component-variants";
+import { cn } from "../lib/utils";
+import { inputVariants } from "../lib/component-variants";
+import { Caption } from "./typography/Caption";
 
 interface SelectProps
   extends React.HTMLAttributes<HTMLAllCollection>,
@@ -34,7 +33,7 @@ interface SelectProps
   focusedClassName?: string;
 }
 
-const Select = (props: SelectProps) => {
+export const Select = (props: SelectProps) => {
   const { readOnly, disabled, size, iconClassName, checkedClassName } = props;
   const [selectedOption, setSelectedOption] = React.useState("");
   const [iconDirection, setIconDirection] = React.useState("rotate(90deg)");
@@ -197,7 +196,8 @@ const Select = (props: SelectProps) => {
                 : isFocused
                 ? props.focusedClassName
                 : "",
-              error && inputVariants({ variant: "error", size: size })
+              error && inputVariants({ variant: "error", size: size }),
+              props.className
             ),
 
           indicatorsContainer: () => indicatorsContainerStyles,
@@ -224,5 +224,3 @@ const Select = (props: SelectProps) => {
     </div>
   );
 };
-
-export default Select;

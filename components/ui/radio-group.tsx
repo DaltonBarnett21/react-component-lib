@@ -3,9 +3,8 @@
 import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { Circle } from "lucide-react";
-import Text from "./typography/Text";
-
-import { cn } from "@/lib/utils";
+import { Text } from "./typography/Text";
+import { cn } from "../lib/utils";
 
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,

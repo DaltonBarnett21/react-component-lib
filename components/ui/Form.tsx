@@ -11,10 +11,10 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from "../../lib/utils";
-import { Label } from "../ui/label";
-import Caption from "./typography/Caption";
 import { AlertTriangle } from "lucide-react";
+import { cn } from "../lib/utils";
+import { Label } from "./label";
+import { Caption } from "./typography/Caption";
 
 const Form = FormProvider;
 

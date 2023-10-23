@@ -1,8 +1,7 @@
 import React from "react";
 
 import { cva, type VariantProps } from "class-variance-authority";
-
-import { cn } from "../../../lib/utils";
+import { cn } from "../../lib/utils";
 
 const titleVariants = cva(" ", {
   variants: {
@@ -28,7 +27,7 @@ export interface SubTitleProps
   level: 1 | 2;
 }
 
-const SubTitle = React.forwardRef<HTMLElement, SubTitleProps>(
+export const SubTitle = React.forwardRef<HTMLElement, SubTitleProps>(
   ({ className, level, weight, children, ...props }) => {
     return (
       <span
@@ -40,5 +39,3 @@ const SubTitle = React.forwardRef<HTMLElement, SubTitleProps>(
     );
   }
 );
-
-export default SubTitle;

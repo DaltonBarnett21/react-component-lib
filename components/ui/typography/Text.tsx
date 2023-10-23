@@ -1,6 +1,6 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn } from "../../lib/utils";
 
 const textVariants = cva(" ", {
   variants: {
@@ -30,7 +30,7 @@ export interface TextProps
   weight?: "medium" | "regular";
 }
 
-const Text = React.forwardRef<HTMLElement, TextProps>(
+export const Text = React.forwardRef<HTMLElement, TextProps>(
   ({ className, level, weight, children, ...props }) => {
     return (
       <p
@@ -44,5 +44,3 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
     );
   }
 );
-
-export default Text;

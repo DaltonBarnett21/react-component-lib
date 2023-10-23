@@ -3,21 +3,19 @@
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import Text from "./typography/Text";
-
-import { cn } from "@/lib/utils";
-import Title from "./typography/TItle";
+import { cn } from "../lib/utils";
+import { Title } from "./typography/TItle";
+import { Text } from "./typography/Text";
 
 const Modal = DialogPrimitive.Root;
 
 const ModalTrigger = DialogPrimitive.Trigger;
 
 const ModalPortal = ({
-  className,
   children,
   ...props
 }: DialogPrimitive.DialogPortalProps) => (
-  <DialogPrimitive.Portal className={cn(className)} {...props}>
+  <DialogPrimitive.Portal {...props}>
     <div className="fixed inset-0 z-50 flex items-start justify-center sm:items-center">
       {children}
     </div>

@@ -1,12 +1,14 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import InputMask from "react-input-mask";
-import { cn } from "../../lib/utils";
-import Caption from "./typography/Caption";
+
 import { useFormField } from "./Form";
-import Text from "./typography/Text";
-import { inputVariants } from "@/lib/component-variants";
-import { PatternFormat } from "react-number-format";
+
+import { Text } from "./typography/Text";
+import { NumericFormat, PatternFormat } from "react-number-format";
+import { inputVariants } from "../lib/component-variants";
+import { cn } from "../lib/utils";
+import { Caption } from "./typography/Caption";
 
 export interface InputProps
   extends Omit<
@@ -20,7 +22,8 @@ export interface InputProps
   disabled?: boolean;
   readonly?: boolean;
   focusedClassName?: string;
-  format?: "phoneNumber" | null;
+  format?: "phoneNumber" | "currency" | null;
+  allowNegative?: boolean;
   onChange?: any;
   value?: any;
   onKeyDown?: any;
@@ -38,6 +41,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       variant,
       type,
       focusedClassName,
+      allowNegative,
       format,
       ...props
     },
@@ -81,6 +85,33 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               name={props.name}
               onKeyDown={props.onKeyDown}
             />
+            <Caption className=" text-grayNeutral-400 " level={1}>
+              {assertiveText}
+            </Caption>
+          </>
+        ) : format === "currency" ? (
+          <>
+            <NumericFormat
+              decimalScale={2}
+              prefix={"$"}
+              thousandSeparator=","
+              className={cn(
+                inputVariants({ variant, className, size, readOnly, disabled }),
+                "focus:" + focusedClassName,
+                error && "border-red-400 bg-red-50"
+              )}
+              placeholder={props.placeholder}
+              onValueChange={(val: any) => {
+                const { value } = val;
+                props.onChange(value);
+              }}
+              onKeyDown={props.onKeyDown}
+              value={props.value}
+              allowNegative={allowNegative}
+            />
+            <Caption className=" text-grayNeutral-400 " level={1}>
+              {assertiveText}
+            </Caption>
           </>
         ) : (
           <>

@@ -1,12 +1,12 @@
-import { cn } from "@/lib/utils";
 import React from "react";
+import { cn } from "../lib/utils";
 
 interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
   className?: string;
   children?: React.ReactNode[];
 }
 
-const ButtonGroup = ({ className, children, ...props }: Props) => {
+export const ButtonGroup = ({ className, children, ...props }: Props) => {
   return (
     <div {...props} className={cn("grid grid-cols-12 gap-2", className)}>
       {children?.map((child) => {
@@ -15,5 +15,3 @@ const ButtonGroup = ({ className, children, ...props }: Props) => {
     </div>
   );
 };
-
-export default ButtonGroup;
